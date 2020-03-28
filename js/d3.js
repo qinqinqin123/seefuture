@@ -2,7 +2,7 @@
 var width = 800, height=400;
 
 
-d3.json('words.json', function(error, data){
+d3.json('data/words.json', function(error, data){
 
     var color = d3.scaleLinear()
             .domain([0,1,2,3,4,5,6,5000,6000])
@@ -125,7 +125,7 @@ d3.json('words.json', function(error, data){
 
               
 function updatebarchart(a){
-  d3.json('words.json', function(error, data){
+  d3.json('data/words.json', function(error, data){
     console.log(a)
   // console.log(data.filter(function(d){ return d.word == a}))
   var data_long = [];
@@ -203,7 +203,7 @@ svg.selectAll("mybar")
 
 function updatetranslator(a){
   
-  d3.json('words.json', function(error, data){
+  d3.json('data/words.json', function(error, data){
   // data.map(function(d) { return {text: d.word, size: d.times};})
   data_meaning = data.filter(function(d){ return d.word == a})
   data_meaning = data_meaning.map(function(d) { return {word: d.word, meaning: d.meaning, times: d.times, property: d.property, translation: d.translation};})
