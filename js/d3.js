@@ -22,28 +22,32 @@ d3.json('data/words.json', function(error, data){
             .attr("width", width)
             .attr("height", height)
             .attr("class", "wordcloud")
-            .append("g")
-            .attr("transform","translate(350,200)")
             
-            
+            .call(d3.zoom().on("zoom", function () {
+              svg.attr("transform", d3.event.transform)
+          }))
+          
+          .append("g")
+          .attr("transform","translate(350,200)")
+          
 
-            d3.select("#zoom_in").on("click", function() {
+            // d3.select("#zoom_in").on("click", function() {
             
-                zoom.scaleBy(svg.transition().duration(750), 1.2)
+            //     zoom.scaleBy(svg.transition().duration(750))
                
-            });
+            // });
         
-            d3.select("#zoom_out").on("click", function() {
-                zoom.scaleBy(svg.transition().duration(750), 0.8);
-            });
+            // d3.select("#zoom_out").on("click", function() {
+            //     zoom.scaleBy(svg.transition().duration(750), 0.8);
+            // });
 
-            var zoom = d3.zoom()
-                        .scaleExtent([0.5, 5])
-                        .on("zoom", zoomed)
+          //   var zoom = d3.zoom()
+          //               .scaleExtent([0.5, 5])
+          //               .on("zoom", zoomed)
                         
-            function zoomed() {
-              svg.attr("transform", d3.event.transform);
-          }  
+          //   function zoomed() {
+          //     svg.attr("transform", d3.event.transform);
+          // }  
 
     function draw(words) {
                 
@@ -56,6 +60,7 @@ d3.json('data/words.json', function(error, data){
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                 })
                 .text(function(d) { return d.text; })
+                .attr("text-anchor", "middle")
                
 
                 .on('click', function(d, i) {
@@ -151,8 +156,8 @@ function updatebarchart(a){
   d3.select("#barchart").selectAll("svg").remove();
   var svg = d3.select("#barchart")
   .append("svg")
-    .attr("width", "800px")
-    .attr("height", "130px")
+    .attr("width", "750px")
+    .attr("height", "150px")
   .append("g")
     .attr("transform",
           "translate(20,30)");
@@ -164,17 +169,21 @@ var x = d3.scaleBand()
   .padding(0.3);
 svg.append("g")
   .call(d3.axisBottom(x))
+  .style("stroke","white")
+  .attr("transform","translate(0,120)")
   .selectAll("text")
   .style("text-anchor", "end")
   .style("fill","white")
-  .text(function(d) { return d.y; })
-
+  
+  
 // Add Y axis
 var y = d3.scaleLinear()
   .domain([0,800])
-  .range([120, 0]);
-// svg.append("g")
-//   .call(d3.axisLeft(y));
+  .range([150, 0]);
+svg.append("g")
+  .call(d3.axisLeft(y).tickSize(700))
+  .style("stroke","white")
+  .attr("transform", "translate(700,0)")
 
 // Bars
 svg.selectAll("mybar")
@@ -185,14 +194,14 @@ svg.selectAll("mybar")
     .attr("width", x.bandwidth())
     .attr("fill", "white")
     // no bar at the beginning thus:
-    .attr("height", function(d) { return 120 - y(0); }) // always equal to 0
+    .attr("height", function(d) { return 150 - y(0); }) // always equal to 0
     .attr("y", function(d) { return y(0); })
 
     svg.selectAll("rect")
   .transition()
   .duration(800)
   .attr("y", function(d) { return y(d.value); })
-  .attr("height", function(d) { return 120 - y(d.value); })
+  .attr("height", function(d) { return 150 - y(d.value); })
   .delay(function(d,i){ return(i*100)})
 
 
