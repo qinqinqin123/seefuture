@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="d3.layout.cloud.js"></script>
+  <!-- <script src="https://d3js.org/d3-zoom.v1.min.js"></script> -->
+
+  
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <!-- <script src="motion.js"></script>
+   -->
+
+  <div id='w'><canvas id="space"></canvas></div>
+  <script src="bg.js"></script>
+  
+
+  <div class="container">
+
+    <div class= "row justify-content-between mt-4" id="title">
+      <div class="col-11 p-1"><h1>SEE YOU IN THE FUTURE</h1></div>
+      <div class="col-1"><span><i class="fas fa-info-circle" id="info"></i></span></div>
+      <div class="slider mb-2">
+        <div class="line"></div>
+        <div class="break dot1"></div>
+        <div class="break dot2"></div>
+        <div class="break dot3"></div>
+      </div>
+    </div>
+
+  <div class="row mt-4 mb-2">
+    <div class="col-9 caption pl-0"><p class="mb-0">SEARCHING...</p></div>
+    <div class="col-3 caption"><p class="mb-0">SELECTING...</p></div>
+  </div>
+
+  <div class="row">
+    <div class="col-9 pl-0">
+      <div class="graph" id="wordcloud"><svg></svg></div>
+      <button id="zoom_in">+</button>
+      <button id="zoom_out">-</button>
+    </div>
+      <!-- <div class="d-inline-flex" id="selector">
+        <input type="checkbox" class="checkbox d-block" value="n" checked><label>n</label>
+        <input type="checkbox" class="checkbox d-block" value="v" checked><label>v</label>
+        <input type="checkbox" class="checkbox d-block" value="adj" checked><label>adj</label>
+      </div> -->
+      <div class="col-3">
+        
+          <div class="col-12 graph mb-2" id="count">
+            <h2 class="mt-3">849<h2>
+            <h4>WORDS IN TOTAL</h4>
+            <h4>108 VERBS</h4>
+            <h4>14 ADJECTIVES</h4>
+            <h4>635 NOUNS</h4>
+            
+            <div class="col-12 custom-control custom-switch">
+              <input class="custom-control-input" type="checkbox" value="n" id="switch1">
+              <label class="custom-control-label" for="switch1">noun</label>
+            </div>
+            
+            <div class="col-12 custom-control custom-switch">
+              <input class="custom-control-input" type="checkbox" value="adj" id="switch2">
+              <label class="custom-control-label" for="switch2">adj</label>
+            </div>
+          
+            <div class="col-12 custom-control custom-switch mb-3">
+              <input class="custom-control-input" type="checkbox" value="adv" id="switch3">
+              <label class="custom-control-label" for="switch3">adv</label>
+            </div>
+          </div>
+        
+
+          <div class="col-12 p-5" id="eye">
+            <div class="border">
+            <div class="eye1">
+              <div class="small1">
+                <div class="pupil"></div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+      </div>
+  </div>
+
+  <div class="row mt-4 mb-2">
+    <div class="col-4 caption pl-0"><p class="mb-0">TRANSLATING...</p></div>
+    <div class="col-8 caption"><p class="mb-0">ANALYSING...</p></div>
+  </div>
+
+      
+  <div class="row">
+    <div class="col-4 pl-0">
+      <div class="graph" id="Translator">
+        <div class="col-12" id="word"></div>
+        <!-- <div class="col-12 mb-5"><p>original word ~ translation</p></div> -->
+        <div class="col-12 mt-5" id="meaning"></div>
+        <div class="col-12" id="times"></div>
+    </div>
+    </div>
+    
+    <div class="col-8">
+      <div class="graph" id="barchart"></div>
+    </div>
+
+  </div>
+
+
+</div>
+
+    <!-- <div class= "row">
+      <button class= "col-lg-2 d-inline mr-3" id="addtrans">Translator</button>
+      <button class= "col-lg-2 d-inline mr-3" id="adddic">Dictionary</button>
+      <button class= "col-lg-2 d-inline" id="addlucky">Lucky lucky</button>
+    </div>
+  </div> -->
+
+
+<script src="d3.js"></script>
+
+</body>
