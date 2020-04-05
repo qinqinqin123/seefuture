@@ -4,6 +4,8 @@ var width = 800, height=400;
 
 d3.json('data/words.json', function(error, data){
 
+  
+
     var color = d3.scaleLinear()
             .domain([0,1,2,3,4,5,6,5000,6000])
             .range(["#f7f7f7", "#ddd", "#bbb", "#aaa", "#999", "#666", "#444", "#222", "#111", "#111"]);
@@ -77,7 +79,7 @@ d3.json('data/words.json', function(error, data){
                 .on('mouseover', function(d, i) {
                     d3.select(this)
                     .transition()
-                    .style("fill","white")
+                    .style("fill","#8c7851")
                     .style("font-size", function(d) { return d.size +10 + "px"; })
                 })
 
@@ -93,35 +95,35 @@ d3.json('data/words.json', function(error, data){
          
   
 
-    d3.select("div#word").append("svg")
-                .attr("width", "300px")
-                .attr("height", "50px")
-                .append("g")
-                .append("text")
+    d3.select("div#word").append("div")
+                // .attr("width", "300px")
+                // .attr("height", "50px")
+                // .append("g")
+                // .append("text")
                 .attr("class", "h3")
                 .attr("transform","translate(5,40)")
                 .style("fill","white")
-                .text("ORIGINAL WORDS ~ TRANSLATION")
+                .html("CN ~ ENG")
 
-    d3.select("div#meaning").append("svg")
-                .attr("width", "300px")
-                .attr("height", "25px")
-                .append("g")
-                .append("text")
+    d3.select("div#meaning").append("div")
+                // .attr("width", "300px")
+                // .attr("height", "25px")
+                // .append("g")
+                // .append("text")
                 .attr("class", "h3")
                 .style("fill","white")
                 .attr("transform","translate(5,20)")
-                .text("WORD PROPERTY")
+                .html("0")
 
-    d3.select("div#times").append("svg")
-                .attr("width", "300px")
-                .attr("height", "25px")
-                .append("g")
-                .append("text")
+    d3.select("div#times").append("div")
+                // .attr("width", "300px")
+                // .attr("height", "25px")
+                // .append("g")
+                // .append("text")
                 .attr("class", "h3")
                 .style("fill","white")
                 .attr("transform","translate(5,20)")
-                .text("APPEARENCE FREQUENCY")
+                .html("0")
 
       
               }
@@ -131,7 +133,7 @@ d3.json('data/words.json', function(error, data){
               
 function updatebarchart(a){
   d3.json('data/words.json', function(error, data){
-    console.log(a)
+    // console.log(a)
   // console.log(data.filter(function(d){ return d.word == a}))
   var data_long = [];
   data.filter(function(d){ return d.word == a}).forEach(function(d) {
@@ -151,39 +153,46 @@ function updatebarchart(a){
       });
     }
   });
-  console.log(data_long)
+  // console.log(data_long)
 
   d3.select("#barchart").selectAll("svg").remove();
+  d3.select("#barchart").selectAll("text").remove();
   var svg = d3.select("#barchart")
   .append("svg")
     .attr("width", "750px")
     .attr("height", "150px")
   .append("g")
     .attr("transform",
-          "translate(20,30)");
+          "translate(10,0)");
           
 //  X axis
 var x = d3.scaleBand()
   .range([ 0, 700 ])
   .domain(data_long.map(function(d) { return d.y; }))
   .padding(0.3);
+  var ticks = data_long.map(function(d) { return d.y; })
+  // console.log(data_long.map(function(d) { return d.y; }))
+  tickLabels = ["1986","1989","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011"]
 svg.append("g")
-  .call(d3.axisBottom(x))
-  .style("stroke","white")
-  .attr("transform","translate(0,120)")
+  .call(d3.axisBottom(x).tickValues(ticks)
+  .tickFormat(function(d,i){ return tickLabels[i] }))
+  .attr("transform","translate(0,125)")
   .selectAll("text")
-  .style("text-anchor", "end")
   .style("fill","white")
+  .attr("class","p")
+  
   
   
 // Add Y axis
 var y = d3.scaleLinear()
-  .domain([0,800])
-  .range([150, 0]);
-svg.append("g")
-  .call(d3.axisLeft(y).tickSize(700))
-  .style("stroke","white")
-  .attr("transform", "translate(700,0)")
+  .domain([0,600])
+  .range([125, 0]);
+// svg.append("g")
+//   .call(d3.axisLeft(y).tickSize(700))
+//   .style("stroke","white")
+//   .attr("transform", "translate(700,0)")
+
+ 
 
 // Bars
 svg.selectAll("mybar")
@@ -194,15 +203,36 @@ svg.selectAll("mybar")
     .attr("width", x.bandwidth())
     .attr("fill", "white")
     // no bar at the beginning thus:
-    .attr("height", function(d) { return 150 - y(0); }) // always equal to 0
+    .attr("height", function(d) { return 125 - y(0); }) // always equal to 0
     .attr("y", function(d) { return y(0); })
+
+
+    .on('mouseover', function(d, i) {
+    svg.selectAll("mybar").data(data_long)
+    .enter()
+    .append("text")
+    .attr("class", "p number")
+    .attr("x", function(d) { return x(d.y); })
+    .attr("y", function(d) { return y(d.value+35); })
+    .style("text-anchor", "start")
+    .style("fill", "white")
+    .text(function(d) { return d.value; })
+    })
+
+    .on('mouseout', function(d, i) {
+    d3.selectAll(".p.number").remove()
+  })
+    
+    
 
     svg.selectAll("rect")
   .transition()
   .duration(800)
   .attr("y", function(d) { return y(d.value); })
-  .attr("height", function(d) { return 150 - y(d.value); })
+  .attr("height", function(d) { return 125 - y(d.value); })
   .delay(function(d,i){ return(i*100)})
+
+
 
 
 
@@ -217,9 +247,8 @@ function updatetranslator(a){
   data_meaning = data.filter(function(d){ return d.word == a})
   data_meaning = data_meaning.map(function(d) { return {word: d.word, meaning: d.meaning, times: d.times, property: d.property, translation: d.translation};})
   
-  d3.select("div#word").selectAll("svg").remove();
-
-  d3.select("div#word").append("svg")
+  d3.select("div#word").selectAll("div").remove();
+  d3.select("div#word").append("div")
                 .attr("width", "300px")
                 .attr("height", "50px")
                 .append("g")
@@ -227,35 +256,39 @@ function updatetranslator(a){
                 .data(data_meaning)
                 .enter().append("text")
                 .attr("class", "h2")
-                .attr("transform","translate(5,40)")
+                // .attr("transform","translate(5,40)")
                 .style("fill","white")
-                .text(function(d) { return d.word + " ~ "+ d.translation;})
+                .html(function(d) { return d.word + " ~ "+ d.translation;})
+                // .text(function(d) { return d.word + " ~ "+ d.translation;})
                
-    d3.select("div#meaning").selectAll("svg").remove();
-    d3.select("div#meaning").append("svg")
-                .attr("width", "300px")
-                .attr("height", "25px")
-                .append("g")
+    d3.select("div#meaning").selectAll("div").remove();
+    d3.select("div#meaning").append("div")
+                // .attr("width", "300px")
+                // .attr("height", "25px")
+                // .append("g")
                 .selectAll("text")
                 .data(data_meaning)
                 .enter().append("text")
                 .attr("class", "h3")
                 .style("fill","white")
-                .attr("transform","translate(5,20)")
-                .text(function(d) { return "PROPERTY: "+d.property ;})
+                // .attr("transform","translate(5,20)")
+                .text(function(d) { return d.property ;})
+                // .text(function(d) { return "PROPERTY: "+d.property ;})
 
-    d3.select("div#times").selectAll("svg").remove();
-    d3.select("div#times").append("svg")
-                .attr("width", "300px")
-                .attr("height", "25px")
-                .append("g")
+    d3.select("div#times").selectAll("div").remove();
+    d3.select("div#times").append("div")
+                // .attr("width", "300px")
+                // .attr("height", "25px")
+                // .append("g")
                 .selectAll("text")
                 .data(data_meaning)
                 .enter().append("text")
                 .attr("class", "h3")
                 .style("fill","white")
-                .attr("transform","translate(5,20)")
-                .text(function(d) { return "APPEARENCE FREQUENCY: "+ d.times;})
+                // .attr("transform","translate(5,20)")
+                // .text(function(d) { return "APPEARENCE FREQUENCY: "+ d.times;})
+                // .html(function(d) { return "APPEARENCE FREQUENCY: "+ "<br/>" +d.times;})
+                .html(function(d) { return d.times;})
 
     // d3.select("div#meaning").append("svg")
     //             .attr("width", "300px")

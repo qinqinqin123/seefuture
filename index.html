@@ -6,12 +6,14 @@
   <link rel="stylesheet" type="text/css" href="css/style.css" media="screen"/>
   <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="js/d3.layout.cloud.js"></script>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  
   <script src="js/motion.js"></script>
   
 
@@ -23,7 +25,9 @@
 
     <div class= "row justify-content-between mt-4" id="title">
       <div class="col-11 p-1"><h1>SEE YOU IN THE FUTURE</h1></div>
-      <div class="col-1"><span><i class="fas fa-info-circle" id="info"></i></span></div>
+      <div type="button"  data-toggle="modal" data-target="#myModal">
+        <span><i class="fas fa-info-circle" id="info"></i></span>
+      </div>
       <div class="slider mb-2">
         <div class="line"></div>
         <div class="break dot1"></div>
@@ -31,6 +35,7 @@
         <div class="break dot3"></div>
       </div>
     </div>
+
 
   <div class="row mt-4 mb-2">
     <div class="col-9 caption pl-0"><p class="mb-0">SEARCHING...</p></div>
@@ -51,30 +56,27 @@
       <div class="col-3">
         
           <div class="col-12 graph mb-2" id="count">
-            <h2 class="mt-3">849<h2>
-            <h4>WORDS IN TOTAL</h4>
-            <h4>108 VERBS</h4>
-            <h4>14 ADJECTIVES</h4>
-            <h4>635 NOUNS</h4>
+            <h4 class="mt-3">WORDS IN TOTAL</h4>
+            <h2>849<h2>
             
-            <div class="col-12 custom-control custom-switch">
+            <div class="col-12 custom-control custom-switch mt-5">
               <input class="custom-control-input" type="checkbox" value="n" id="switch1">
-              <label class="custom-control-label" for="switch1">noun</label>
+              <label class="custom-control-label" for="switch1"><h5 class="pt-1">108 VERBS</h5></label>
             </div>
             
             <div class="col-12 custom-control custom-switch">
               <input class="custom-control-input" type="checkbox" value="adj" id="switch2">
-              <label class="custom-control-label" for="switch2">adj</label>
+              <label class="custom-control-label" for="switch2"><h5 class="pt-1">14 ADJECTIVES</h5></label>
             </div>
           
             <div class="col-12 custom-control custom-switch mb-3">
               <input class="custom-control-input" type="checkbox" value="adv" id="switch3">
-              <label class="custom-control-label" for="switch3">adv</label>
+              <label class="custom-control-label" for="switch3"><h5 class="pt-1">635 NOUNS</h5></label>
             </div>
           </div>
         
 
-          <div class="col-12 p-5" id="eye">
+          <div class="col-12 pt-5 pl-5 pr-5 pb-0" id="eye">
             <div class="border">
             <div class="eye1">
               <div class="small1">
@@ -96,15 +98,28 @@
   <div class="row">
     <div class="col-4 pl-0">
       <div class="graph" id="Translator">
+        <h4 class="col-12 mt-3">ORIGINAL WORDS ~ TRANSLATION</h4>
         <div class="col-12" id="word"></div>
+        <div class="row mt-4 justify-content-between">
+        <div class="col-4">
+        <h4 class="col-12 mb-1">WORD PROPERTY</h4>
         <!-- <div class="col-12 mb-5"><p>original word ~ translation</p></div> -->
-        <div class="col-12 mt-5" id="meaning"></div>
+        <div class="col-12" id="meaning"></div>
+      </div>
+      <div class="col-4 pl-0">
+        <h4 class="col-12 mb-1">APPEARENCE FREQUENCY</h4>
         <div class="col-12" id="times"></div>
+      </div>
+      <div class="col-1"></div>
     </div>
+  </div>
     </div>
     
     <div class="col-8">
-      <div class="graph" id="barchart"></div>
+      
+      <div class="graph" id="barchart">
+        <h4 class="col-12 mt-3 mb-0">APPEARENCE FREQUENCY AMONG DIFFERENT YEARS</h4>
+      </div>
     </div>
 
   </div>
@@ -118,6 +133,76 @@
       <button class= "col-lg-2 d-inline" id="addlucky">Lucky lucky</button>
     </div>
   </div> -->
+
+<!-- Modal -->
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+    
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h1 class=" pl-4">INSTRUCTION</h1>
+        <button type="button" class="close" data-dismiss="modal"><h1><i class="fas fa-times"></i></h1></button>
+      </div>
+      
+      <!-- Modal body -->
+      <div class="modal-body pl-4 mt-3">
+        <div class="col-9 ">
+        <h3 class="mb-3">How do we think of the future? What do we wish to happen? Sci-fi novels may be the best places to find out the reason why the future is so fascinating. 
+          The words here are picked from the Sci-fi novels in Chinese based on their frequency. 
+          For example, the size of each word as it is shown here in the word cloud. These novels were a selection of 
+          award-winning works for Chinese Sci-fi galaxy award from 1986 to 2011 (中国科幻银河奖第一届至第二十三届).</h3>
+        </div>
+        <div class="col-3">
+        <img class="mt-5" src="css/instructions-01.svg">
+        </div>
+        <div class="col-9">
+        <h3>1: Wordcloud generated from the data.</h3>
+        <h3 class="pl-3">Drag >> Move these words</h3>
+        <h3 class="pl-3">Scroll >> Scale up or down these words</h3>
+        <h3 class="pl-3 mb-3">Click >> Check detail information of this word in graph 3 & 4</h3>
+
+        <h3 class="mb-3">2: General information of all the words. Sorry the filters don't work currently.</h3>
+
+        <h3 >3,4: Detail information of the word clicked.</h3>
+        
+      </div>
+      <div class="col-12">
+        <h3 class="mt-5">List of novels 收集科幻作品以下191篇：</h3>
+        <p class="mb-0">1986</p><p>《白痴》《失踪的航线》</p>
+        <p class="mb-0">1989</p><p>《难圆玫瑰梦》《天道》《在时间的铅幕后面》</p>
+        <p class="mb-0">1991</p><p>《故土难离》《火山口上的大脑基地》《女娲恋》《生死第六天》《太空修道院》《雾中山传奇》《一个戊戌老人的故事》《证据》</p>
+        <p class="mb-0">1992</p><p>《波儿》《等您一千年》《光恋》《梦幻世界》《行星巴士》《遗物钓“鲨”》《坠入爱河的电脑》</p>
+        <p class="mb-0">1993</p><p>《戴茜救我》《电脑魔王》《无际禅师之谜》《雪陆星》《亚当回归》</p>
+        <p class="mb-0">1994</p><p>《朝圣》《空中袭击者》《魔瓶》《平行》《丘比特的谬误》《圣诞礼物》《失去记忆的人》《天火》《智慧病毒》《撞击》</p>
+        <p class="mb-0">1995</p><p>《沧桑》《超脑》《寂寞长天》《泪洒鄱阳湖》《没有答案的航程》《生命之歌》《太空抢险》《信使》《幽灵列车》《远古的星辰》</p>
+        <p class="mb-0">1996</p><p>《伏羲》《火星尘暴》《决斗在网络》《克隆之城》《梦境》《全息传真机》《网络帝国》《为了凋谢的花》《我要活下去》《西奈噩梦》</p>
+        <p class="mb-0">1997</p><p>《毒蛇》《黑洞之吻》《红舞鞋》《桦树的眼睛》《猫捉老鼠的游戏》《七重外壳》《谁胜谁负》《谁是亚当》《天骄》《一个老流浪汉的自述》</p>
+        <p class="mb-0">1998</p><p>《MUD—黑客事件》《豹》《飞越海峡的鸽子》《风之子》《高塔下的小镇》《会合第十行星》《猫的故事》《时间的彼方》《偃师传说》《这一刻用尽一生》</p>
+        <p class="mb-0">1999</p><p>《超越永恒》《潮啸如枪》《带上她的眼睛》《黑暗中归来》《来自远古》《笑吧，朋友》《心歌魅影》《心灵密约》《伊俄卡斯达》《异域》</p>
+        <p class="mb-0">2000</p><p>《爱别离》《橱窗里的荷兰赌徒》《流浪地球》《日落了，却没人写诗》《三十六亿分之一》《深渊：十万年后我们的真实生活》《我想回桂林》《一线天》《异手》《邮差》</p>
+        <p class="mb-0">2001</p><p>《大角，快跑》《盗墓》《废墟》《故乡的云》《诡础》《来看天堂》《棋谱》《全频带阻塞干扰》《是谁长眠在此》《替天行道》《蜕》《乡村教师》</br>《心中的香格里拉》《熏衣草》《战神初航》</p>
+        <p class="mb-0">2002</p><p>《宝贝宝贝我爱你》《朝闻道》《饥不择食》《六道众生》《马姨》《日光镇》《生存实验》《水星播种》《天下之水》《吞食者》《瘟疫》《西天》</br>《一日囚》《植花演义》《中国太阳》</p>
+        <p class="mb-0">2003</p><p>《春日泽·云梦山·仲昆》《地球大炮》《饿塔》《寄生之魔》《山海间》《伤心者》《诗云》《思想者》《唯美》</p>
+        <p class="mb-0">2004</p><p>《冰上海》《关妖精的瓶子》《镜子》《潜入贵阳》《审判日》《天意》《异天行》《圆圆的肥皂泡》</p>
+        <p class="mb-0">2005</p><p>《寂静之城》《卡门》《情尽桥》《赡养人类》《深度撞击》《天生我材》《天堂没有地下铁》《一生的故事》</p>
+        <p class="mb-0">2006</p><p>《废楼十三层》《归者无路》《昆仑》《囚魂曲》《上校的军刀》《我是谁》《终极爆炸》</p>
+        <p class="mb-0">2007</p><p>《674号公路》《后冰川时代纪事》《假设》《泡泡》《天雷无妄》《永不消失的电波》《在他乡》《祖母家的夏天》</p>
+        <p class="mb-0">2008</p><p>《虫巢》《袋鼠》《扶桑之伤》《活着》《基因源》《湿婆之舞》《永夏之梦》</p>
+        <p class="mb-0">2009</p><p>《抽签佯谬》《达尔文的夜莺》《绿岸山庄》《十亿年后的来客》《时空追缉》《胎动之星》《屠龙之技》《有关时空旅行的马龙定律》</p>
+        <p class="mb-0">2010</p><p>《百鬼夜行街》《百年守望》《笼中乌鸦》《人生不相见》《双生忆》《伪人算法》《昔日玫瑰》</p>
+        <p class="mb-0">2011</p><p>《第九站的诗人》《雷峰塔》《您好，异星人陪聊》《杀死一个科幻作家》</p>
+      </div>
+    </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 
 <script src="js/d3.js"></script>
